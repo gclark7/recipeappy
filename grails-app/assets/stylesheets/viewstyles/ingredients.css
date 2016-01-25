@@ -1,0 +1,31 @@
+.ingredientButton{
+    color: #006dba;
+    background-color: #333333;
+    border-color: black;
+    border:1px;
+}
+
+.indentMe{
+    margin-left: 1em;
+}
+
+.leftSide{
+    float:left;
+}
+
+.rightSide{
+    float:right;
+}
+
+.smallPanel{
+    width:10em;
+    float:right;
+}
+
+.smallPanel a:link, .smallPanel a:visited {
+    color: whitesmoke;
+}
+
+.smallPanel a:hover, .smallPanel a:focus {
+    color: #333333;
+}
