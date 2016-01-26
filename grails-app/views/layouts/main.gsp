@@ -10,17 +10,17 @@
 
         <g:layoutHead/>
     </head>
-    <body ng-app="app">
+    <body ng-app="recipeApp">
         <div id="appLogo" class="header logo" role="banner">
 
             <div >
                 <a href="grails-app/tblingredient/index"><asset:image src="food91x60.jpg" alt="appLogo" class="logo"/></a>
                 <div class="smallPanel">
                     <div class="rightSide">
-                        <g:link uri="home/index">Mangage Recipes</g:link>
+                        <g:link uri="main">Mangage Recipes</g:link>
                     </div>
                     <div class="rightSide">
-                        <g:link uri="/tblingredient/index">Mangage Ingredients</g:link>
+                        <g:link uri="/ingredient/index">Mangage Ingredients</g:link>
                     </div>
 
                 </div>
