@@ -28,7 +28,8 @@ recipeApp.controller('manageIngredients', ['$scope','$http', function($scope,$ht
         $scope.newName = name;
         $scope.newType = type;
     }
-
-
-
+//example of js calling groovy controller
+//var urlShareCollection = 'shareCollection.json?jsonp=JSON_CALLBACK&id=' + $scope.collectionID + "&imageFormat=" + $scope.imageFormat +
+    //'&sendTo=' + $scope.shareWith + '&emailSubject=Imagebank Collection Shared' + '&emailBody=' + $scope.emailBody + "&fileName=" + $scope.fileName;
+//groovy controller gets by params.id params.emailBody etc
 }]);

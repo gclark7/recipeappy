@@ -1,10 +1,15 @@
 package com.appcurious.recipeappy
 
 import grails.transaction.Transactional
+import java.util.logging.*
 
 @Transactional
 class IngredientService {
     //def ingredienttypeService
+    def Logger log = Logger.getLogger("IngredientService").setLevel(Level.ALL)
+
+
+
     def Ingredient[] getIngredients(){
 
         def ingredients = Ingredient.findAll()
@@ -29,28 +34,31 @@ class IngredientService {
                 //System.out.println("saved " + ingredient)
                 //System.out.println(ingredient.errors.allErrors())
             }catch(Exception c){
-                System.out.println(ingredient.toString())
+                //log.info(c + ", " + ingredient.toString() )
+                //System.out.println(ingredient.toString())
             }
 
         }else{
             ingredient.setIngredientname("notSaved...NoName")
-            System.out.println("no Name")
+            //log.info("no Name")
         }
         ingredient
     }
 
-    def Ingredient editIngredient(int id,String ingredientName,int ingredientType){
-
-        System.out.println(id)
-        System.out.println(ingredientName)
-        System.out.println(ingredientType)
-        def ingredient = getIngredientById(id) //Ingredient.findById(id:id)//
+    def Ingredient editIngredient(int ingredientId, String ingredientName, int ingredientType){
+        def showMe = "id::" + ingredientId
+        System.out.println(showMe)
+        //log.info(id.toString())
+        //log.info(ingredientName)
+        //log.info(ingredientType)
+        def ingredient = getIngredientById(ingredientId) //Ingredient.findById(id:id)//
 
 
         if(ingredientName) {
             ingredient.setIngredientname(ingredientName)
             ingredient.setIngredienttype(ingredientType)
             ingredient.save()
+
         }
         ingredient
     }
@@ -58,11 +66,15 @@ class IngredientService {
     def Ingredient getIngredientById(int id){
         def ingredient = Ingredient.findById(id)
         def tempName = "did not find " + id
-        System.out.println(ingredient.ingredientname)
+
         if(!ingredient){
             ingredient = new Ingredient()
             ingredient.setIngredientname(tempName)
-            System.out.println(tempName)
+            //log.info("no ingredient " + tempName)
+            System.out.println("no ingredient " + tempName)
+        }else{
+            //log.info(ingredient.getIngredientname())
+
         }
         ingredient
     }

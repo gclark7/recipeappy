@@ -1,13 +1,17 @@
 package com.appcurious.recipeappy
-
+//import java.util.logging.*
 class IngredientController {
     //static defaultAction = "index"
-
+//    def Logger log = Logger.getLogger("IngredientController").setLevel(Level.ALL)
     def ingredientService
     def ingredienttypeService
 
-    def ingredientType
-    def ingredientName
+//    def id
+//    def ingredientType
+//    def ingredientName
+
+
+
 
     def index() {
 
@@ -42,7 +46,8 @@ class IngredientController {
 //        }
         def ingredient = ingredientService.createIngredient(ingredientName,ingredientType)
         //render view:'index'//works but does not display ingredients
-        System.out.println(ingredientName + " , " + ingredientType)
+//        System.out.println(ingredientName + " , " + ingredientType)
+        log.info(ingredientName + ", " + ingredientType)
 
         def ingredients = ingredientService.getIngredients()
         def types = getIngredientTypes()
@@ -59,11 +64,21 @@ class IngredientController {
         ingredientTypes
     }
 
-    def editIngredient(int id,String ingredientName,int ingredientType){
-        System.out.println(id)
-        System.out.println(ingredientName)
-        System.out.println(ingredientType)
-        ingredientService.editIngredient(id,ingredientName,ingredientType)
+    def editIngredient(){
+        int ingredientId = Integer.parseInt(params.ingredientId)
+        String ingredientName = params.ingredientName
+        int ingredientType = Integer.parseInt(params.ingredientType)
+        System.out.println(params.ingredientId)
+
+    //def editIngredient(){
+        //log.info(id.toString())
+        //log.info(ingredientName)
+        //log.info(ingredientType.toString())
+        ingredientService.editIngredient(ingredientId,ingredientName,ingredientType)
+
+        def ingredients = ingredientService.getIngredients()
+        def types = getIngredientTypes()
+        render(view:'index',model: [ingredients: ingredients,types:types] )
 
     }
 

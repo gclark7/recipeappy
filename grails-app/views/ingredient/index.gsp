@@ -44,22 +44,29 @@
                         %{--<g:submitButton name="Update Ingredient" id="btnUpdateIngredient"></g:submitButton>--}%
                     %{--</g:form>--}%
                 %{--</div>--}%
-                <g:each in="${ingredients}" var="ingredient">
-                    <li ng-click="editIngredient('${ingredient.id}', '${ingredient.ingredientname}', '${ingredient.ingredienttype}')">
+                <div class="indentMe">
+                    <g:each in="${ingredients}" var="ingredient">
+                        <li ng-click="editIngredient('${ingredient.id}', '${ingredient.ingredientname}', '${ingredient.ingredienttype}')">
 
-                        <label ng-hide="!hideEdit">${ingredient.ingredientname} , ${ingredient.ingredienttype}</label>
+                            <label >${ingredient.ingredientname} , ${ingredient.ingredienttype}</label>
 
 
-                        %{--<input type="submit" ng-hide="hideEdit" name="Update Ingredient" id="updateIngredient" value="Save Change"/>--}%
-                        %{--<input type="button" ng-click="toggleHideEdit()" value="Edit Ingredient"/>--}%
-                    </li>
-                </g:each>
+                            %{--<input type="submit" ng-hide="hideEdit" name="Update Ingredient" id="updateIngredient" value="Save Change"/>--}%
+                            %{--<input type="button" ng-click="toggleHideEdit()" value="Edit Ingredient"/>--}%
+                        </li>
+                    </g:each>
+                </div>
 
                 <div ng-hide="hideEdit">
                     <g:form controller="ingredient" action="editIngredient" id="editIngredient" >
-                        <g:textField name="id" id="id" ng-model="editId"></g:textField>
-                        <g:textField name="ingredientName" id="ingredientName" ng-model="newName"></g:textField>
-                        <g:textField name="ingredientType" id="ingredientType" ng-model="newType"></g:textField>
+                        <g:textField readonly="readonly" name="ingredientId" id="ingredientId" ng-model="editId" ></g:textField>
+                        <g:textField name="ingredientName" id="ingredientName" ng-model="newName" ></g:textField>
+                        <select id="ingredientType" name="ingredientType" ng-model="newType">
+                            <g:each var="type" in="${types}">
+                                <option value="${type.getId()}">${type.type}</option>
+                            </g:each>
+                        </select>
+                        %{--<g:textField name="ingredientType" id="ingredientType" ng-model="newType" ></g:textField>--}%
                         <g:submitButton name="Save Change" id="btnEditIngredient"></g:submitButton>
                     </g:form>
                 </div>
