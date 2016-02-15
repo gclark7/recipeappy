@@ -15,10 +15,10 @@ class Ingredient {
     }
 
 
-    def Ingredient[] findAll(){
-        def ingredients = Ingredient.findAll()
-        ingredients
-    }
+//    def Ingredient[] findAll(){
+//        def ingredients = Ingredient.findAll()
+//        ingredients
+//    }
 
     def Ingredient findById(int id){
         //def query = Ingredient.where {id==id}
@@ -44,5 +44,24 @@ class Ingredient {
 
     def int getIngredienttype(){
         ingredienttype
+    }
+
+    @Override
+    def boolean equals(Object o){
+        Ingredient thatIngredient = null
+        boolean theyAreTheSame = false
+
+        try{
+            thatIngredient = (Ingredient)o
+
+        }catch(ClassCastException ce){
+            return theyAreTheSame
+        }
+
+        if(this.id == thatIngredient.id){
+            theyAreTheSame = true
+        }
+
+        return theyAreTheSame
     }
 }
