@@ -46,7 +46,7 @@
                 %{--</div>--}%
                 <div class="indentMe">
                     <g:each in="${ingredients}" var="ingredient">
-                        <li ng-click="editor.editIngredient('${ingredient.id}', '${ingredient.ingredientname}', '${ingredient.ingredienttype}')">
+                        <li ng-click="editor.editIngredient('${ingredient.id}', '${ingredient.ingredientname}', '${ingredient.ingredienttype}', modalController)">
                         %{--<li ng-click="editIngredient('${ingredient}')">--}%
                         %{--<li>--}%
 
@@ -110,29 +110,35 @@
                 %{--</div>--}%
             %{--</div>--}%
 
-            <script type="text/ng-template" id="editIngredientModal.html">
+            <div ng-controller="editIngredientModalController">
+                <script type="text/ng-template" id="editIngredientModal.html">
+                    <div class="modal-header">
+                        edit ingredient
+                    </div>
+                    <div class="modal-body">
+                        <g:form controller="ingredient" action="editIngredient" id="editIngredient" >
+                            <g:textField readonly="readonly" name="ingredientId" id="ingredientId" ng-model="ingredientToEdit.id" ></g:textField>
+                            <g:textField name="ingredientName" id="ingredientName" ng-model="ingredientToEdit.ingredientname" ></g:textField>
+                            <select id="ingredientType" name="ingredientType" ng-model="ingredientToEdit.ingredienttype">
+                                <g:each var="type" in="${types}">
+                                    <option value="${type.getId()}">${type.type}</option>
+                                </g:each>
+                            </select>
+                            <g:submitButton name="Save Change" id="btnEditIngredient" ng-click="ok()"></g:submitButton>
+                        </g:form>
+                        <div><input type="button" ng-click="cancel()" value="cancel"/></div>
+                    </div>
 
-                <g:form controller="ingredient" action="editIngredient" id="editIngredient" >
-                    <g:textField readonly="readonly" name="ingredientId" id="ingredientId" ng-model="ingredientToEdit.id" ></g:textField>
-                    <g:textField name="ingredientName" id="ingredientName" ng-model="ingredientToEdit.ingredientname" ></g:textField>
-                    <select id="ingredientType" name="ingredientType" ng-model="ingredientToEdit.ingredienttype">
-                        <g:each var="type" in="${types}">
-                            <option value="${type.getId()}">${type.type}</option>
-                        </g:each>
-                    </select>
-                    <g:submitButton name="Save Change" id="btnEditIngredient" ng-click="ok()"></g:submitButton>
-                </g:form>
-                <div><input type="button" ng-click="cancel()" value="cancel"/></div>
 
-
-
-            </script>
+                </script>
+            </div>
                     <div class="ingredientButton">
                         <span class="glyphicon glyphicon-folder-open"></span><button type="button" onclick="fnAlert()" >alert</button>
                     </div>
 
-            </div>
+            %{--</div>--}%
         </div>
+
 
     </body>
 </html>
