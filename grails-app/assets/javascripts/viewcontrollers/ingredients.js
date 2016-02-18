@@ -3,10 +3,10 @@
  */
 recipeApp.controller("manageIngredients",function($scope,$http,$modal,IngredientEditor) {
 //recipeApp.controller("manageIngredients", function($scope,$http,$modal) {
-     $scope.modalController = $modal;
+//     $scope.modalController = $modal;
      $scope.editor = new IngredientEditor();
 
-    // $scope.editor.modalController = $modal;
+     $scope.editor.modalController = $modal;
    // $scope.editor.modalController = $uibModal;
    // $scope.editor.hideEdit = true;
 
@@ -35,93 +35,94 @@ recipeApp.controller("manageIngredients",function($scope,$http,$modal,Ingredient
     //}
 });
 
-//recipeApp.factory('IngredientEditor',function($scope){
-//    var editor = function(){
-//        this.ingredientToEdit = {'id':0,'ingredientname':'needAName','ingredienttype':0};
-//        this.ingredientToMake = {'id':0,'ingredientname':'newIngredient','ingredienttype':0};
-//    };
+recipeApp.factory('IngredientEditor',function($http, $modal){
+    var editor = function(){
+        this.ingredientToEdit = {'id':0,'ingredientname':'needAName','ingredienttype':0};
+        this.ingredientToMake = {'id':0,'ingredientname':'newIngredient','ingredienttype':0};
+    };
 ////
 ////
 ////
-//    editor.prototype.editIngredient = function(id,name,type){
-//        alert("wasUP");
-////    //$scope.editIngredient = function(id,name,type){
-////    //$scope.editIngredient = function(ingredient){ //unable to pass in the actual ingredient with attributes
-////        //var editModal = this.modalController;
-////
-////        console.log("editIngredient():: ",name);
-////        //$scope.ingredientToEdit.id = id;
-////        //$scope.ingredientToEdit.ingredientname = name;
-////        //$scope.ingredientToEdit.ingredienttype = type;
-////        var myid = id;
-////        var myname = name;
-////        var mytype = type;
-////
-////        //console.log("editIngredient():: ",$scope.ingredientToEdit.ingredientname);
-////        console.log("var id:: ",myid);
-////        //$scope.hideEdit = false;
-////        //$scope.toggleHideEdit();
-////        //$scope.editId = id;
-////        //$scope.newName = name;
-////        //$scope.newType = type;
-////
-////
-////        var ingredient = $scope.ingredientToEdit;//was undefined in the modal controller
-////        //var modalInstance = editModal.open({
-////        //    templateUrl: 'editIngredientModal.html',
-////        //    controller: 'editIngredientModalController',
-////        //    resolve:{
-////        //        myname : function(){
-////        //            return myname;
-////        //        },
-////        //        mytype : function(){
-////        //            return mytype;
-////        //        },
-////        //        myid : function(){
-////        //            return myid;
-////        //        }
-////        //    }
-////        //
-////        //});
-////        //
-////        //modalInstance.result.then(function(id){
-////        //    console.log("result id:: ",id);
-////        //});
+    editor.prototype.editIngredient = function(id,name,type){
+        //alert("wasUP");
+
+         var ingredientToEdit = this.ingredientToEdit;
+         ingredientToEdit.id = id;
+         ingredientToEdit.ingredientname = name;
+         ingredientToEdit.ingredienttype = type;
+        var editModal = this.modalController;
+
+              modalInstance = editModal.open({
+              templateUrl: 'editIngredientModal.html',
+              controller: 'editIngredientModalController',
+              size:"lg",
+
+              //resolve: {
+              //          myid: function(){
+              //               return id;
+              //          },
+              //          myname: function(){
+              //               return name;
+              //          },
+              //          mytype: function(){
+              //               return type;
+              //          }
+              //
+              //     }
+
+              resolve: {
+                   editIngredient: function(){
+                        return ingredientToEdit;
+                   }
+
+              }
+
+
+              });
+
+        modalInstance.result.then(function(id){
+            console.log("result id:: ",id);
+        });
 ////
 ////
-//    };
-////
-//    return editor;
+    };
 //
-//});
-//example of js calling groovy controller
-//var urlShareCollection = 'shareCollection.json?jsonp=JSON_CALLBACK&id=' + $scope.collectionID + "&imageFormat=" + $scope.imageFormat +
-    //'&sendTo=' + $scope.shareWith + '&emailSubject=Imagebank Collection Shared' + '&emailBody=' + $scope.emailBody + "&fileName=" + $scope.fileName;
-//groovy controller gets by params.id params.emailBody etc
+    return editor;
+//
+});
 
 
-recipeApp.controller('editIngredientModalController', function($scope,$http) {
-    //recipeApp.controller('editIngredientModalController', function($scope,$http,$modalInstance,myid,myname,mytype)
+
 //recipeApp.controller('editIngredientModalController', function($scope,$http) {
-//
+// recipeApp.controller('editIngredientModalController', function($scope, $http, $modalInstance, myid, myname, mytype){
+//recipeApp.controller('editIngredientModalController', function($scope,$http) {
+//recipeApp.controller('editIngredientModalController', function($scope, $http, myid, myname, mytype){
+recipeApp.controller('editIngredientModalController', function($scope,$http, $modalInstance, editIngredient) {
 //    //$scope.id = ingredient.id;
 //    //$scope.ingredientname = ingredient.name;
 //    //$scope.ingredienttype = ingredient.type;
 //    //console.log("ingredient :: ",ingredient);
 //    console.log("myid:: ",myid);
 //
-//    //$scope.ingredientToEdit.id = myid;
-//    //$scope.ingredientToEdit.ingredientname = myname;
-//    //$scope.ingredientToEdit.ingredienttype = mytype;
+//     $scope.myid = myid;
+//     $scope.myname = myname;
+//     $scope.mytype = mytype;
+//
+//    $scope.ingredientToEdit.id = myid;
+//    $scope.ingredientToEdit.ingredientname = myname;
+//    $scope.ingredientToEdit.ingredienttype = mytype;
+     $scope.ingredientToEdit = editIngredient;
 //    //
 //    //console.log("Modal:: ");
 //    //
-//    $scope.ok = function(){
-//        $modalInstance.dismiss('ok');
-//    }
-//
-//    $scope.cancel = function () {
-//        $modalInstance.dismiss('cancel');
-//    };
+    $scope.ok = function(){
+        $modalInstance.dismiss('ok');
+         console.log($scope.ingredientToEdit);
+    }
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+         console.log($scope.ingredientToEdit);
+    };
 //
 });

@@ -46,7 +46,7 @@
                 %{--</div>--}%
                 <div class="indentMe">
                     <g:each in="${ingredients}" var="ingredient">
-                        <li ng-click="editor.editIngredient('${ingredient.id}', '${ingredient.ingredientname}', '${ingredient.ingredienttype}', modalController)">
+                        <li ng-click="editor.editIngredient('${ingredient.id}', '${ingredient.ingredientname}', '${ingredient.ingredienttype}')">
                         %{--<li ng-click="editIngredient('${ingredient}')">--}%
                         %{--<li>--}%
 
@@ -110,7 +110,7 @@
                 %{--</div>--}%
             %{--</div>--}%
 
-            <div ng-controller="editIngredientModalController">
+
                 <script type="text/ng-template" id="editIngredientModal.html">
                     <div class="modal-header">
                         edit ingredient
@@ -131,7 +131,7 @@
 
 
                 </script>
-            </div>
+
                     <div class="ingredientButton">
                         <span class="glyphicon glyphicon-folder-open"></span><button type="button" onclick="fnAlert()" >alert</button>
                     </div>
